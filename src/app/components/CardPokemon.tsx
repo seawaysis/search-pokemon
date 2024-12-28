@@ -10,7 +10,7 @@ type Props = {
 // }
 const CardPokemon: FC<Props> = (props) => {
   return props.listPokemon ? (
-    <div className="flex justify-center border-1 border-white-900 border-r-2 my-2">
+    <div className="flex justify-center border-2 border-white-900 border-r-2 my-2">
       <div className="mx-2">
         <Image
           src={props.listPokemon.image}
@@ -41,7 +41,7 @@ const CardPokemon: FC<Props> = (props) => {
       </div>
     </div>
   ) : (
-    <div className='flex justify-center'>No search</div>
+    <div className='flex justify-center'>No Data</div>
   );
 }
 
