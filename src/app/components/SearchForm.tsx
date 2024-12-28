@@ -9,7 +9,8 @@ type Props = {
 const SearchFrom: FC<Props> = (props) => {
   const [searchText, setSearchText] = useState<string>("");
 
-  const searchPokemon = async () => {
+  const searchPokemon = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const response = await fetch("/api/search", {
       method: "POST",
       body: JSON.stringify({ search_text: searchText }),
@@ -22,18 +23,23 @@ const SearchFrom: FC<Props> = (props) => {
   };
   return (
     <div className="flex justify-center my-4">
+      <form onSubmit={searchPokemon}>
         <input
           type="text"
-          className="color-black-900"
+          className="w-50 bg-transparent placeholder:text-slate-300 text-white text-sm border border-slate-400 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-50 hover:border-slate-300 shadow-sm focus:shadow"
           placeholder="Search pokemon"
           name="search_text"
           onChange={(e) => {
             setSearchText(e.target.value);
           }}
         />
-      <button className="" onClick={searchPokemon} type="submit">
-        Search
-      </button>
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold mx-2 py-2 px-2 rounded-md"
+          type="submit"
+        >
+          Search
+        </button>
+      </form>
     </div>
   );
 };

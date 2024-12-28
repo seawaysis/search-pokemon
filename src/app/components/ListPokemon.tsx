@@ -9,8 +9,8 @@ const CharPokemon: FC<Props> = (props) => {
   return (
     <div>
       <CardPokemon key={props.listPokemon?.number} listPokemon={props.listPokemon} />
-      <h3 className="flex justify-center"> Evolutions </h3>
-      {props.listPokemon?.evolutions ? props.listPokemon.evolutions.map(v => <CardPokemon key={v.number} listPokemon={v}/>) : null}
+      <h1 className="flex justify-center my-5"> Evolutions </h1>
+      {props.listPokemon?.evolutions ? props.listPokemon.evolutions.map(v => <CardPokemon key={v.number} listPokemon={v}/>) : <div className="flex justify-center"><h1>No data</h1></div>}
     </div>
   );
 };
