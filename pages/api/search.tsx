@@ -1,62 +1,139 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-type ResponseData = {
-  message: string;
-};
-interface pokemon {
-  id:string,
-    number:string,
-    attacks : {
-      fast: {
-        name:string,
-        type:string,
-        damage:number
-      }
-    },
-    name : string,
-    evolutions : {
-      id : string
-    }
+// 
+type response<T = unknown> = {
+  success : boolean,
+  errorCode : string | number,
+  message : string,
+  data? : T
 }
+type EvolutionsPokemon = {
+      id: string;
+      number: string;
+      name: string;
+      classification: string;
+      types: string;
+      resistant: string;
+      weaknesses: string;
+      fleeRate: number;
+      maxCP: number;
+      maxHP: number;
+      image: string;
+      attacks: {
+        fast: [
+          {
+            name: string;
+            type: string;
+            damage: number;
+          }
+        ];
+        special: [
+          {
+            name: string;
+            type: string;
+            damage: number;
+          }
+        ];
+      };
+      evolutions: [EvolutionsPokemon];
+      };
+type GetPokemon = {
+  data : {
+    pokemon : EvolutionsPokemon
+  }
+};
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<ResponseData>
+  res: NextApiResponse<response<EvolutionsPokemon>>
 ) {
   if (req.method === "POST") {
-    const {search_text} = req.body;
-    //console.log(process.env.endpointGrapql);
+    const { search_text } = req.body;
 
     const query: string = JSON.stringify({
       query: `query pokemon($name: String){
             pokemon(name : $name){
             id,
             number,
+            name,
+            classification,
+            types,
+            resistant,
             attacks{
               fast{
                 name,
                 type,
                 damage
+              },
+              special{
+                name,
+                type,
+                damage
               }
             },
-            name,
+            weaknesses,
+            fleeRate,
+            maxCP,
+            maxHP,
+            image,
             evolutions{
-              id
+              id,
+              number,
+              name,
+              classification,
+              types,
+              resistant,
+              attacks{
+                fast{
+                  name,
+                  type,
+                  damage
+                },
+                special{
+                  name,
+                  type,
+                  damage
+                }
+              },
+              weaknesses,
+              fleeRate,
+              maxCP,
+              maxHP,
+              image,
+              evolutions{
+                id 
+              } 
             }
           }
-        }
-    `,
+        }`,
       variables: { name: search_text },
     });
-    const data: pokemon = await fetch(process.env.endpointGrapql as string, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: query,
-    }).then((res) => res.json());
-
-    console.log(data);
-    res.status(200).json({ message: 'test' });
+    try {
+      const data: GetPokemon = await fetch(
+        process.env.endpointGrapql as string,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: query,
+        }
+      ).then((res) => res.json());
+      console.log(data);
+      const r: response<EvolutionsPokemon> = {
+        success: true,
+        errorCode: "",
+        message: "success",
+        data: data.data.pokemon,
+      };
+      res.status(200).json(r);
+    } catch (e) {
+      console.error(e);
+    }
   } else {
-    res.status(405).json({ message: "Method Not Allowed" });
+    const r: response<EvolutionsPokemon> = {
+      success: false,
+      errorCode: 405,
+      message: "not allow method",
+    };
+    res.status(r.errorCode as number).json(r);
   }
 }
