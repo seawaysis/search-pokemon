@@ -21,14 +21,16 @@ const SearchFrom: FC<Props> = (props) => {
     props.setListPokemon(response.data);
   };
   return (
-    <div className="justify-center">
-      <input
-        type="text"
-        name="search_text"
-        onChange={(e) => {
-          setSearchText(e.target.value);
-        }}
-      />
+    <div className="flex justify-center my-4">
+        <input
+          type="text"
+          className="color-black-900"
+          placeholder="Search pokemon"
+          name="search_text"
+          onChange={(e) => {
+            setSearchText(e.target.value);
+          }}
+        />
       <button className="" onClick={searchPokemon} type="submit">
         Search
       </button>

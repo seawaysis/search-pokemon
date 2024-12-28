@@ -1,16 +1,24 @@
 "use client"
 import React,{useState} from 'react';
 import SearchForm from './components/SearchForm';
-import CharPokemon from './components/CharPokemon';
+import ListPokemon from "./components/ListPokemon";
 
 export type EvolutionsPokemon = {
   id: string;
   number: string;
   name: string;
+  weight: {
+    minimum: string;
+    maximum: string;
+  };
+  height: {
+    minimum: string;
+    maximum: string;
+  };
   classification: string;
   types: string;
-  resistant: string;
-  weaknesses: string;
+  resistant: string[];
+  weaknesses: string[];
   fleeRate: number;
   maxCP: number;
   maxHP: number;
@@ -39,7 +47,7 @@ export default function Home() {
     return (
       <>
         <SearchForm setListPokemon={setListPokemon} />
-        <CharPokemon listPokemon={listPokemon} />
+        <ListPokemon listPokemon={listPokemon} />
       </>
     );
 }

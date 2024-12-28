@@ -11,7 +11,17 @@ const nextConfig: NextConfig = {
   // },
   env: {
     endpointGrapql : 'https://graphql-pokemon2.vercel.app'
-  }
+  },
+  images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'img.pokemondb.net',
+                port: '',
+                pathname: '/artwork/**',
+            },
+        ],
+    },
 };
 
 export default nextConfig;
