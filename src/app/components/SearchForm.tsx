@@ -11,9 +11,9 @@ const SearchFrom: FC<Props> = (props) => {
 
   const searchPokemon = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const response = await fetch("/api/search", {
-      method: "POST",
-      body: JSON.stringify({ search_text: searchText }),
+    const response = await fetch("/api/search/" + searchText, {
+      method: "GET",
+      //body: JSON.stringify({ search_text: searchText }),
       headers: {
         "Content-Type": "application/json",
       },

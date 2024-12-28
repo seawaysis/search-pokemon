@@ -53,9 +53,9 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<response<EvolutionsPokemon>>
 ) {
-  if (req.method === "POST") {
-    const { search_text } = req.body;
-
+  if (req.method === "GET") {
+    //const { name } = req.body;
+    const { name } = req.query;
     const query: string = JSON.stringify({
       query: `query pokemon($name: String){
             pokemon(name : $name){
@@ -120,7 +120,7 @@ export default async function handler(
             }
           }
         }`,
-      variables: { name: search_text },
+      variables: { name: name },
     });
     try {
       const data: GetPokemon = await fetch(
