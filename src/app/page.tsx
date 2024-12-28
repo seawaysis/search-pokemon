@@ -7,11 +7,11 @@ export type EvolutionsPokemon = {
   id: string;
   number: string;
   name: string;
-  weight: {
+  weight:{
     minimum: string;
     maximum: string;
   };
-  height: {
+  height:{
     minimum: string;
     maximum: string;
   };

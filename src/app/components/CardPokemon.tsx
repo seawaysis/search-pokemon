@@ -29,8 +29,8 @@ const CardPokemon: FC<Props> = (props) => {
         <p className="border-b-2 gap-y-2">Weaknesses : {props.listPokemon.weaknesses.join(',')}</p>
         <p className="border-b-2 gap-y-2">FleeRate : {props.listPokemon.fleeRate}</p>
         <br />
-        <p className="border-b-2 gap-y-2">Height : {props.listPokemon.height.minimum} ~ {props.listPokemon.height.maximum}</p>
-        <p className="border-b-2 gap-y-2">Weight : {props.listPokemon.weight.minimum} ~ {props.listPokemon.weight.maximum}</p>
+        <p className="border-b-2 gap-y-2">Height : {props.listPokemon.height?.minimum} ~ {props.listPokemon.height?.maximum}</p>
+        <p className="border-b-2 gap-y-2">Weight : {props.listPokemon.weight?.minimum} ~ {props.listPokemon.weight?.maximum}</p>
         <br />
         <p className="border-b-2 gap-y-2">MaxHP : {props.listPokemon.maxHP}</p>
         <p className="border-b-2 gap-y-2">MaxCP : {props.listPokemon.maxCP}</p>

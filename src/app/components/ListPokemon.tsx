@@ -8,7 +8,9 @@ type Props = {
 const CharPokemon: FC<Props> = (props) => {
   return (
     <div>
-      <CardPokemon listPokemon={props.listPokemon} />
+      <CardPokemon key={props.listPokemon?.number} listPokemon={props.listPokemon} />
+      <h3 className="flex justify-center"> Evolutions </h3>
+      {props.listPokemon?.evolutions ? props.listPokemon.evolutions.map(v => <CardPokemon key={v.number} listPokemon={v}/>) : null}
     </div>
   );
 };
